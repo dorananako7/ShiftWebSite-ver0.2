@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1100">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>ぼさき株式会社</title>
+</head>
+
+<body>
+    <h1>ぼさき株式会社.com</h1>
+    <div class="table-container">
+        <table width="100%" height="100%">
+            <tr>
+                <th>時間</th>
+                <th>9月29日</th>
+                <th>9月20日</th>
+                <th>10月1日</th>
+                <th>10月2日</th>
+                <th>10月3日</th>
+                <th class="saturday-color">10月4日</th>
+                <th class="sunday-color">10月5日</th>
+            </tr>
+            <tr>
+                <th>6:00</th>
+                <td>
+                    <div th:each="data: ${names}">
+                        <a th:href="@{/shift/info/{id}(id=${data.id})}">  <!--aタグは必ずgetリクエスト-->
+                            <p th:text="${data.name}"><br></p>
+                        </a>
+                    </div>
+                    <form th:action="@{/shift/add}" method="post">
+                        <input type="text" name="name" placeholder="名前" size="8">
+                        <input type="hidden" name="shiftDate" th:value="9月29日">
+                        <input type="hidden" name="shiftTime" th:value="'6:00'">
+                        <br>
+                        <button type="submit">追加</button>
+                    </form>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>7:00</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>8:00</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>9:00</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>10:00</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>11:00</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>12:00</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>13:00</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>14:00</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>15:00</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>16:00</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>17:00</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>18:00</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>

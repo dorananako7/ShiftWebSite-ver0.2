@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1100">
+    <link rel="stylesheet" th:href="@{/css/dekete.css}">
+    <title>ぼさき株式会社</title>
+</head>
+
+<h1>削除</h1>
+<p th:text="${data.name}">を削除しますか?</p>
+<form th:action="@{/shift/info/delete}" method="post">
+    <input type="hidden" name="id" th:value="${data.id}">
+    <button type="submit">削除</button>
+</form>
+
+</html>

@@ -1,0 +1,32 @@
+.table-container {
+    width: 900px;
+    height: 1500px;
+}
+
+table {
+    /*表の線を重ねる*/
+    border-collapse: collapse;
+}
+
+table th,td {
+    /*線を引く*/
+    border: solid 1px black;
+    /*余白を作る*/
+    padding: 10px;
+    /*中央揃え*/
+    text-align: center;
+
+}
+
+table th {
+    background-color: #dcdcdc;
+}
+
+.saturday-color {
+    color:blue;
+}
+
+.sunday-color {
+    color: red;
+}
+

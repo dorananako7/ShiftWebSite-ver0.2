@@ -4,6 +4,9 @@ package com.ShiftWebService_02.yuuko;
 import jakarta.persistence.Entity;
 //テーブルの名前を指定する
 import jakarta.persistence.Table;
+
+import java.time.LocalDateTime;
+
 //カラムの名前を指定できる
 import jakarta.persistence.Column;
 //主キーであることを明示する
@@ -24,38 +27,30 @@ public class DataController {
     @Column(name = "userName")
     private String name;
 
-    @Column(name = "shiftDate")
-    private String shiftDate;
+    @Column(name="date")
+    private LocalDateTime shiftDateTime;
 
-    @Column(name = "shiftTime")
-    private String shiftTime;
+    
+   
 
     public String getName() {
         return this.name;
-    }
-
-    public String getShiftDate() {
-        return this.shiftDate;
-    }
-
-    public String getShiftTime() {
-        return this.shiftTime;
     }
 
     public Long getId() {
         return this.id;
     }
 
-    void setName(String name) {
+    public LocalDateTime getShiftDateTime() {
+        return this.shiftDateTime;
+    }
+
+    public void setName(String name) {
         this.name = name;
     }
 
-    public void setShiftDate(String date) {
-        this.shiftDate = date;
-    }
-
-    public void setShiftTime(String time) {
-        this.shiftTime = time;
+    public void setShiftDateTime(LocalDateTime shifDateTime) {
+        this.shiftDateTime = shifDateTime;
     }
 
 }

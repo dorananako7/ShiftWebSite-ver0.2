@@ -1,5 +1,6 @@
 package com.ShiftWebService_02.yuuko;
 
+import org.springframework.http.ResponseEntity;
 //このクラスをhtmlコントローラーとして認識させる
 import org.springframework.stereotype.Controller;
 //SporingBootからhtmlに情報を渡すためのもの
@@ -24,11 +25,8 @@ public class ShiftController {
     private int month = 10;
     private int year = 2025;
     private final ArrayList<String> TIME_SLOTS = new ArrayList<>(List.of(
-        "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", 
-        "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"
-    ));
-
-    
+            "06:00", "07:00", "08:00", "09:00", "10:00", "11:00",
+            "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"));
 
     public ShiftController(DataRepository repository) {
         this.repository = repository;
@@ -40,7 +38,7 @@ public class ShiftController {
         System.out.println("トップページを表示します！");
         ArrayList<LocalDate> dateList = new ArrayList<>();
         LocalDate startDate = LocalDate.of(this.year, this.month, this.day);
-        for(int i = 0; i < 7; i++) {
+        for (int i = 0; i < 7; i++) {
             LocalDate currentDate = startDate.plusDays(i);
             dateList.add(currentDate);
         }
@@ -51,9 +49,9 @@ public class ShiftController {
     }
 
     @PostMapping("/shift/add")
-    public String PostName(Model model, @RequestParam String name, 
-                            @RequestParam String shiftDate,
-                            @RequestParam String shiftTime) {
+    public String PostName(Model model, @RequestParam String name,
+            @RequestParam String shiftDate,
+            @RequestParam String shiftTime) {
         System.out.printf("%s%sに名前(%s)を追加しました!\n", shiftDate, shiftTime, name);
         DataController data = new DataController();
         LocalDate datepart = LocalDate.parse(shiftDate);
@@ -78,5 +76,10 @@ public class ShiftController {
         repository.deleteById(id);
         System.out.printf("%sを削除しました！\n", name);
         return "redirect:/";
+    }
+
+    @GetMapping("/ping")
+    public ResponseEntity<String> healthCheck() {
+        return ResponseEntity.ok("OK");
     }
 }

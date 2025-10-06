@@ -14,159 +14,37 @@
         <table width="100%" height="100%">
             <tr>
                 <th>時間</th>
-                <th>9月29日</th>
-                <th>9月20日</th>
-                <th>10月1日</th>
-                <th>10月2日</th>
-                <th>10月3日</th>
-                <th class="saturday-color">10月4日</th>
-                <th class="sunday-color">10月5日</th>
+                <!--classappendでは、条件の設定で三項演算子を利用している-->
+                <!--T構文はjavaの静的な機能を使用するためのもの。クラスのある場所をTで示す-->
+                <th th:each="date : ${sevenDays}" th:text="${#temporals.format(date, 'M月d日')}" th:classappend="${date.getDayOfWeek() == T(java.time.DayOfWeek).SATURDAY} ? 'saturday-color' : 
+                    (${date.getDayOfWeek() == T(java.time.DayOfWeek).SUNDAY} ? 'sunday-color' : '')">
+                </th>
             </tr>
-            <tr>
-                <th>6:00</th>
-                <td>
-                    <div th:each="data: ${names}">
-                        <a th:href="@{/shift/info/{id}(id=${data.id})}">  <!--aタグは必ずgetリクエスト-->
-                            <p th:text="${data.name}"><br></p>
+            <!--時間、なまえ-->
+            <tr th:each="time:${timeSlots}">
+                <th th:text="${time}"></th>
+
+                <td th:each="date: ${sevenDays}">
+                    <div th:each="data: ${names}" th:if="${data.shiftDateTime != null && 
+                                data.shiftDateTime.toLocalTime().toString.equals(time) &&
+                                 #temporals.format(data.shiftDateTime.toLocalDate(), 'yyyy-MM-dd') == #temporals.format(date, 'yyyy-MM-dd')}">
+                        <a th:href="@{/shift/info/{id}(id=${data.id})}">
+                            <p th:text="${data.name}"></p>
                         </a>
                     </div>
+
                     <form th:action="@{/shift/add}" method="post">
                         <input type="text" name="name" placeholder="名前" size="8">
-                        <input type="hidden" name="shiftDate" th:value="9月29日">
-                        <input type="hidden" name="shiftTime" th:value="'6:00'">
+                        <input type="hidden" name="shiftDate" th:value="${#temporals.format(date, 'yyyy-MM-dd')}">
+                        <input type="hidden" name="shiftTime" th:value="${time}">
                         <br>
                         <button type="submit">追加</button>
                     </form>
                 </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <th>7:00</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <th>8:00</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <th>9:00</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <th>10:00</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <th>11:00</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <th>12:00</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <th>13:00</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <th>14:00</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <th>15:00</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <th>16:00</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <th>17:00</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <th>18:00</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
             </tr>
         </table>
     </div>
 </body>
+
 
 </html>

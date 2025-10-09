@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1100">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>複数追加</title>
+</head>
+
+<body>
+<h2>名前を入力し、希望する日付を選択してください</h2>
+<form th:action="@{/shift/add}" method="post">
+    <input type="text" name="name" placeholder="名前" size="20">
+    <button type="submit">追加</button>
+    <div class="table-container">
+    <table>
+        <tr>
+            <th>時間</th>
+            <th th:each="date: ${sevenDays}" th:text="${#temporals.format(date, 'M月d日')}" th:classappend="${date.getDayOfWeek()==T(java.time.DayOfWeek).SATURDAY} ? 'saturday-color' :
+                        (${date.getDayOfWeek() == T(java.time.DayOfWeek).SUNDAY} ? 'sunday-color' : '')">
+                    </th>
+        </tr>
+        <tr th:each="time:${timeSlots}">
+            <th th:text="${time}"></th>
+                <td th:each="date:${sevenDays}">
+                    <input type="checkbox" name="shiftDate" th:value="${date} + '|' + ${time}">
+                    <br>
+                </td>
+        </tr>
+    </table>
+    </div>
+</form>
+
+
+
+
+
+
+</body>
+</html>

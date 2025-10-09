@@ -48,6 +48,20 @@ public class ShiftController {
         return "index";
     }
 
+    @GetMapping("/shift/manyadd")
+    public String manyadd(Model model) {
+        System.out.println("manyaddを表示します!");
+        ArrayList<LocalDate> dateList = new ArrayList<>();
+        LocalDate startDate = LocalDate.of(this.year, this.month, this.day);
+        for (int i = 0; i < 7; i++) {
+            LocalDate currentDate = startDate.plusDays(i);
+            dateList.add(currentDate);
+        }
+        model.addAttribute("sevenDays", dateList);
+        model.addAttribute("timeSlots", this.TIME_SLOTS);
+        return "manyadd";
+    }
+
     @PostMapping("/shift/add")
     public String PostName(Model model, @RequestParam String name,
             @RequestParam String shiftDate,

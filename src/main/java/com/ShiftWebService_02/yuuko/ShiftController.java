@@ -116,7 +116,7 @@ public class ShiftController {
         String name = repository.findById(id).get().getName();
         repository.deleteById(id);
         System.out.printf("%sを削除しました！\n", name);
-        return "index";
+        return "redirect:/";
     }
 
     @GetMapping("/ping")

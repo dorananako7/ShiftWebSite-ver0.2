@@ -48,6 +48,20 @@ public class ShiftController {
         return "index";
     }
 
+    @GetMapping("/shift/manyadd")
+    public String manyadd(Model model) {
+        System.out.println("manyaddを表示します!");
+        ArrayList<LocalDate> dateList = new ArrayList<>();
+        LocalDate startDate = LocalDate.of(this.year, this.month, this.day);
+        for (int i = 0; i < 7; i++) {
+            LocalDate currentDate = startDate.plusDays(i);
+            dateList.add(currentDate);
+        }
+        model.addAttribute("sevenDays", dateList);
+        model.addAttribute("timeSlots", this.TIME_SLOTS);
+        return "manyadd";
+    }
+
     @PostMapping("/shift/add")
     public String PostName(Model model, @RequestParam String name,
             @RequestParam String shiftDate,
@@ -60,6 +74,33 @@ public class ShiftController {
         data.setName(name);
         data.setShiftDateTime(shifTime);
         repository.save(data);
+        return "redirect:/";
+    }
+
+    @PostMapping("/shift/manyadd")
+    public String PostName(Model model,
+            @RequestParam String name,
+            @RequestParam(required = false) List<String> selectShifts) {
+        if(name == null || selectShifts == null) {
+            System.out.println("名前、またはチェックボタンが押されていません!");
+            return "redirect:/manyadd";
+        }
+
+        for(int i = 0; i < selectShifts.size(); i++) {
+            String parts = selectShifts.get(i);
+            String[] shiftDayTime = parts.split("\\|");
+            String TempShiftDate = shiftDayTime[0];
+            String TempShiftTime = shiftDayTime[1];
+
+            DataController data = new DataController();
+            LocalDate datePart = LocalDate.parse(TempShiftDate);
+            LocalTime timePart = LocalTime.parse(TempShiftTime);
+            LocalDateTime shiftTime = LocalDateTime.of(datePart, timePart);
+
+            data.setName(name);
+            data.setShiftDateTime(shiftTime);
+            repository.save(data);
+        }
         return "redirect:/";
     }
 
